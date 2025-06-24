@@ -21,8 +21,7 @@ app.post('/send', async (req, res) => {
       notification: { title, body },
       data : {
         click_action: "FLUTTER_NOTIFICATION_CLICK",
-        newsUrl,
-        commendId
+        ...data
       }
     };
 
