@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 // Inisialisasi Firebase Admin SDK
-const serviceAccount = JSON.parse(fs.readFileSync('firebase-key.json', 'utf-8'));
+const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
