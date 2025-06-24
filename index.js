@@ -14,11 +14,16 @@ admin.initializeApp({
 
 app.post('/send', async (req, res) => {
   try {
-    const { token, title, body } = req.body;
-
+    const { token, title, body, data } = req.body;
+    
     const message = {
       token,
       notification: { title, body },
+      data : {
+        click_action: "FLUTTER_NOTIFICATION_CLICK",
+        newsUrl,
+        commendId
+      }
     };
 
     const response = await admin.messaging().send(message);
