@@ -15,26 +15,22 @@ admin.initializeApp({
 app.post('/send', async (req, res) => {
   try {
     const { token, title, body, data } = req.body;
-    console.log("isinya adalah" , token + title + body + data.newsUrl + data.commentUid);
+    console.log("isinya adalah", token + title + body + newsUrl + commentUid);
     const message = {
       token,
       title: title ?? '',
       body: body ?? '',
-      data: {
-        click_action: "FLUTTER_NOTIFICATION_CLICK",
-        newsUrl: data.newsUrl ?? '',
-        commentUid: data.commentUid ?? '',
-      }
-    };
+      newsUrl: newsUrl ?? '',
+      commentUid: commentUid ?? '',
+    }
 
-
-    const response = await admin.messaging().send(message);
-    res.json({ message: 'Notification sent', id: response });
-    console.log(response);
-  } catch (error) {
-    console.error('FCM error:', error);
-    res.status(500).json({ error: 'Failed to send notification' });
-  }
+  const response = await admin.messaging().send(message);
+  res.json({ message: 'Notification sent', id: response });
+  console.log(response);
+} catch (error) {
+  console.error('FCM error:', error);
+  res.status(500).json({ error: 'Failed to send notification' });
+}
 });
 
 const PORT = process.env.PORT || 3000;
