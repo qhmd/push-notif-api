@@ -18,10 +18,10 @@ app.post('/send', async (req, res) => {
     console.log("isinya adalah" , token + title + body + data.newsUrl + data.commendUid);
     const message = {
       token,
+      title: title ?? '',
+      body: body ?? '',
       data: {
         click_action: "FLUTTER_NOTIFICATION_CLICK",
-        title: title ?? '',
-        body: body ?? '',
         newsUrl: data?.newsUrl ?? '',
         commendUid: data?.commendUid ?? '',
       }
