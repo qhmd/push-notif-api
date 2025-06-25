@@ -22,8 +22,8 @@ app.post('/send', async (req, res) => {
       body: body ?? '',
       data: {
         click_action: "FLUTTER_NOTIFICATION_CLICK",
-        newsUrl: data?.newsUrl ?? '',
-        commendUid: data?.commendUid ?? '',
+        newsUrl: newsUrl ?? '',
+        commendUid: commendUid ?? '',
       }
     };
 
