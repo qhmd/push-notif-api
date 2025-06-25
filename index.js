@@ -15,16 +15,18 @@ admin.initializeApp({
 app.post('/send', async (req, res) => {
   try {
     const { token, title, body, data } = req.body;
-    
+
     const message = {
       token,
-      data : {
-        title : title,
-        body : body,
+      data: {
         click_action: "FLUTTER_NOTIFICATION_CLICK",
-        ...data
+        title: title ?? '',
+        body: body ?? '',
+        newsUrl: data?.newsUrl ?? '',
+        commendUid: data?.commendUid ?? '',
       }
     };
+
 
     const response = await admin.messaging().send(message);
     res.json({ message: 'Notification sent', id: response });
