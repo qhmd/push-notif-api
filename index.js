@@ -15,15 +15,15 @@ admin.initializeApp({
 app.post('/send', async (req, res) => {
   try {
     const { token, title, body, data } = req.body;
-    console.log("isinya adalah" , token + title + body + data.newsUrl + data.commendUid);
+    console.log("isinya adalah" , token + title + body + data.newsUrl + data.commentUid);
     const message = {
       token,
       title: title ?? '',
       body: body ?? '',
       data: {
         click_action: "FLUTTER_NOTIFICATION_CLICK",
-        newsUrl: newsUrl ?? '',
-        commendUid: commendUid ?? '',
+        newsUrl: data.newsUrl ?? '',
+        commentUid: data.commentUid ?? '',
       }
     };
 
