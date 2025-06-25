@@ -14,28 +14,28 @@ admin.initializeApp({
 
 app.post('/send', async (req, res) => {
   try {
-    const { token, title, body, data } = req.body;
+    const { token, data } = req.body;
+
+    // Pastikan setiap value dalam data adalah string
+    const stringifiedData = {};
+    for (const key in data) {
+      stringifiedData[key] = String(data[key]);
+    }
 
     const message = {
       token,
-      data: {
-        click_action: "FLUTTER_NOTIFICATION_CLICK",
-        title: title ?? '',
-        body: body ?? '',
-        newsUrl: data?.newsUrl ?? '',
-        commendUid: data?.commendUid ?? '',
-      }
+      data: stringifiedData,
     };
 
-
     const response = await admin.messaging().send(message);
+    console.log("✅ Notification sent:", response);
     res.json({ message: 'Notification sent', id: response });
-    console.log(response);
   } catch (error) {
-    console.error('FCM error:', error);
+    console.error('❌ FCM error:', error);
     res.status(500).json({ error: 'Failed to send notification' });
   }
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
