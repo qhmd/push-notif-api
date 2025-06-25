@@ -14,7 +14,7 @@ admin.initializeApp({
 
 app.post('/send', async (req, res) => {
   try {
-    const { token, title, body, data } = req.body;
+    const { token, title, body, newsUrl ,commentUid } = req.body;
     console.log("isinya adalah", token + title + body + newsUrl + commentUid);
     const message = {
       token,
