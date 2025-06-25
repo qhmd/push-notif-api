@@ -18,8 +18,9 @@ app.post('/send', async (req, res) => {
     
     const message = {
       token,
-      notification: { title, body },
       data : {
+        title : title,
+        body : body,
         click_action: "FLUTTER_NOTIFICATION_CLICK",
         ...data
       }
@@ -27,6 +28,7 @@ app.post('/send', async (req, res) => {
 
     const response = await admin.messaging().send(message);
     res.json({ message: 'Notification sent', id: response });
+    console.log(response);
   } catch (error) {
     console.error('FCM error:', error);
     res.status(500).json({ error: 'Failed to send notification' });
