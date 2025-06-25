@@ -14,23 +14,28 @@ admin.initializeApp({
 
 app.post('/send', async (req, res) => {
   try {
-    const { token, title, body, newsUrl ,commentUid } = req.body;
-    console.log("isinya adalah", token + title + body + newsUrl + commentUid);
+    const { token, title, body, newsUrl, commendUid } = req.body;
+    console.log("isinya adalah", token + title + body + newsUrl + commendUid);
     const message = {
       token,
-      title: title ?? '',
-      body: body ?? '',
-      newsUrl: newsUrl ?? '',
-      commentUid: commentUid ?? '',
-    }
+      notification: {
+        title: title ?? '',
+        body: body ?? '',
+      },
+      data: {
+        newsUrl: newsUrl ?? '',
+        commentUid: commendUid ?? '',
+      }
+    };
 
-  const response = await admin.messaging().send(message);
-  res.json({ message: 'Notification sent', id: response });
-  console.log(response);
-} catch (error) {
-  console.error('FCM error:', error);
-  res.status(500).json({ error: 'Failed to send notification' });
-}
+
+    const response = await admin.messaging().send(message);
+    res.json({ message: 'Notification sent', id: response });
+    console.log(response);
+  } catch (error) {
+    console.error('FCM error:', error);
+    res.status(500).json({ error: 'Failed to send notification' });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
